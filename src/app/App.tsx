@@ -2,11 +2,12 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { Button, Heading, Scrollable, Text } from '@olegpolyakov/ui';
 import { AppContent, AppDrawer, AppShell } from '@olegpolyakov/frontend/app';
+import { createStore, StoreContext } from '@olegpolyakov/frontend/store';
 
-import { initState as initProjectsState, Project, ProjectCreateAction, ProjectsNav } from '@/features/projects';
-import { initState as initTagsState, Tag, TagCreateAction, TagsNav } from '@/features/tags';
-import { initState as initTasksState, Tasks, TasksNav } from '@/features/tasks';
-import { createStore, StoreContext } from '@/store';
+import { initProjectsState, Project, ProjectCreateAction, ProjectsNav } from '@/features/projects';
+import { initSettingsState } from '@/features/settings';
+import { initTagsState, Tag, TagCreateAction, TagsNav } from '@/features/tags';
+import { initTasksState, Tasks, TasksNav } from '@/features/tasks';
 
 import FeaturesProvider from './FeaturesProvider';
 
@@ -14,8 +15,9 @@ import styles from './App.module.scss';
 
 const store = createStore();
 
-initProjectsState(store);
+initSettingsState(store);
 initTasksState(store);
+initProjectsState(store);
 initTagsState(store);
 
 export default function App() {

@@ -1,8 +1,7 @@
 import { useAtom } from 'jotai';
 
 import type { TaskData } from '@olegpolyakov/tasks-core';
-
-import { useStateEvents } from '@/store';
+import { useStateEvents } from '@olegpolyakov/frontend/store';
 
 import type { TasksApi } from '../api';
 import { taskAtom, taskReducer } from '../state';

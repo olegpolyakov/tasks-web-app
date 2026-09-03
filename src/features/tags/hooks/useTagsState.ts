@@ -3,8 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { useAtom } from 'jotai';
 
 import { Tag, type TagData } from '@olegpolyakov/tasks-core';
-
-import { useStateEvents } from '@/store';
+import { useStateEvents } from '@olegpolyakov/frontend/store';
 
 import type { TagsApi } from '../api';
 import { tagsAtom, tagsReducer } from '../state';

@@ -2,12 +2,12 @@ import type { TaskData } from '@olegpolyakov/tasks-core';
 import type { HttpClient } from '@olegpolyakov/frontend/clients/http';
 
 import { API_URL } from '@/env';
-import { socket } from '@/ws';
+import ws from '@/shared/ws';
 
 import type { TasksApi } from './interface';
 
 export default (http: HttpClient): TasksApi => ({
-    events: socket,
+    events: ws,
 
     async fetchTasks(): Promise<TaskData[]> {
         return http.get<TaskData[]>(`${API_URL}/tasks`);
@@ -18,6 +18,7 @@ export default (http: HttpClient): TasksApi => ({
     },
 
     async updateTask(id: string, data: Partial<TaskData>): Promise<TaskData> {
+        console.log('Updating task', id, data);
         return http.put<TaskData>(`${API_URL}/tasks/${id}`, data);
     },
 

@@ -4,8 +4,7 @@ import { useAtom } from 'jotai';
 
 import { Project, Tag, Task, TaskData } from '@olegpolyakov/tasks-core';
 import { toRecordById } from '@olegpolyakov/core/utils/types';
-
-import { useStateEvents, useStore } from '@/store';
+import { useStateEvents, useStore } from '@olegpolyakov/frontend/store';
 
 import type { TasksApi } from '../api';
 import { buildTree } from '../logic/children';

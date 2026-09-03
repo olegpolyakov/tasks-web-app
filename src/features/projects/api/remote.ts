@@ -2,12 +2,12 @@ import type { Project, ProjectData, ProjectSectionData, Task } from '@olegpolyak
 import { HttpClient } from '@olegpolyakov/frontend/clients/http';
 
 import { API_URL } from '@/env';
-import { socket } from '@/ws';
+import ws from '@/shared/ws';
 
 import type { ProjectsApi } from './interface';
 
 export default (http: HttpClient): ProjectsApi => ({
-    events: socket,
+    events: ws,
 
     async fetchProjects(): Promise<ProjectData[]> {
         return http.get(`${API_URL}/projects`);

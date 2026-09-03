@@ -1,5 +1,5 @@
-import { useApi } from '@/features/api';
-import { useAuthContext } from '@/features/auth';
+import { useAuthContext } from '@olegpolyakov/frontend/features/auth';
+import { useApi } from '@olegpolyakov/frontend/hooks/api';
 
 import { localApi, remoteApi } from '../api';
 

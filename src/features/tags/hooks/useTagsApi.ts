@@ -1,4 +1,4 @@
-import { useApi } from '@/features/api';
+import { useApi } from '@olegpolyakov/frontend/hooks/api';
 
 import { remoteApi } from '../api';
 

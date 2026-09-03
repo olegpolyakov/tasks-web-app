@@ -8,7 +8,7 @@ import { useAppContext } from '@olegpolyakov/frontend/app';
 import { useSettingsContext } from '@/features/settings';
 
 import NoTasksImage from '../../assets/no-tasks.svg';
-import { TaskInput, TasksSort, TasksTree } from '../../components';
+import { TaskInput, TasksList, TasksSort, TasksTree } from '../../components';
 import { useTaskContext, useTasksContext } from '../../hooks';
 import { useTasksSort } from '../../hooks';
 import { filters, filterTasks } from '../../logic/filter';
@@ -128,14 +128,25 @@ export default function TasksView({
                 <div className={styles.body}>
                     {filteredAndSortedTasks.length > 0 ?
                         <div className={styles.content}>
-                            <TasksTree
-                                tasks={filteredAndSortedTasks}
-                                selectedTask={selectedTask}
-                                onSelect={setTask}
-                                onToggle={toggleTask}
-                                onUpdate={updateTask}
-                                onReorder={reorderTasks}
-                            />
+                            {id === 'all' ?
+                                <TasksTree
+                                    tasks={filteredAndSortedTasks}
+                                    selectedTask={selectedTask}
+                                    onSelect={setTask}
+                                    onToggle={toggleTask}
+                                    onUpdate={updateTask}
+                                    onReorder={reorderTasks}
+                                />
+                                :
+                                <TasksList
+                                    tasks={filteredAndSortedTasks}
+                                    selectedTask={selectedTask}
+                                    onSelect={setTask}
+                                    onToggle={toggleTask}
+                                    onUpdate={updateTask}
+                                    onReorder={reorderTasks}
+                                />
+                            }
                         </div>
                         :
                         <State

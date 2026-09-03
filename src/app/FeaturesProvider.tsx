@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 
+import { AuthProvider } from '@olegpolyakov/frontend/features/auth';
+
 import { AUTH_URL } from '@/env';
-import { AuthProvider } from '@/features/auth';
 import { ProjectsProvider } from '@/features/projects';
 import { SettingsProvider } from '@/features/settings';
 import { TagsProvider } from '@/features/tags';

@@ -3,8 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { useAtom } from 'jotai';
 
 import { Project, type ProjectData } from '@olegpolyakov/tasks-core';
-
-import { useStateEvents } from '@/store';
+import { useStateEvents } from '@olegpolyakov/frontend/store';
 
 import type { ProjectsApi } from '../api';
 import { projectsAtom, projectsReducer } from '../state';
