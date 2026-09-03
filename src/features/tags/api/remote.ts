@@ -2,11 +2,10 @@ import type { TagData } from '@olegpolyakov/tasks-core';
 import type { HttpClient } from '@olegpolyakov/frontend/clients/http';
 
 import { API_URL } from '@/env';
-import ws from '@/shared/ws';
 
 import type { TagsApi } from './interface';
 
-export default (http: HttpClient): TagsApi => ({
+export default (http: HttpClient, ws: WebSocket): TagsApi => ({
     events: ws,
     
     async fetchTags() {

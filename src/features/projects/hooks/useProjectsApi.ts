@@ -1,7 +1,7 @@
-import { useApi } from '@olegpolyakov/frontend/hooks/api';
+import { useApiFactory } from '@olegpolyakov/frontend/services/api';
 
 import { remoteApi } from '../api';
 
 export default function useProjectsApi() {
-    return useApi(remoteApi);
+    return useApiFactory(remoteApi);
 }

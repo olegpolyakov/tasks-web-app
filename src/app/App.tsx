@@ -9,7 +9,7 @@ import { initSettingsState } from '@/features/settings';
 import { initTagsState, Tag, TagCreateAction, TagsNav } from '@/features/tags';
 import { initTasksState, Tasks, TasksNav } from '@/features/tasks';
 
-import FeaturesProvider from './FeaturesProvider';
+import AppFeaturesProvider from './AppFeaturesProvider';
 
 import styles from './App.module.scss';
 
@@ -23,7 +23,7 @@ initTagsState(store);
 export default function App() {
     return (
         <StoreContext value={store}>
-            <FeaturesProvider>
+            <AppFeaturesProvider>
                 <AppShell name="Tasks">
                     <AppDrawer scrollable={false}>
                         <Scrollable className={styles.sidebar} fade>
@@ -84,7 +84,7 @@ export default function App() {
                         </Routes>
                     </AppContent>
                 </AppShell>
-            </FeaturesProvider>
+            </AppFeaturesProvider>
         </StoreContext>
     );
 }
