@@ -2,7 +2,7 @@ import { type ReactNode, useCallback, useMemo } from 'react';
 
 import { DateTime } from '@olegpolyakov/core';
 import type { Task, TaskData } from '@olegpolyakov/tasks-core';
-import { Button, ButtonGroup, Flex, Heading, HeadingProps, State, TreeItem } from '@olegpolyakov/ui';
+import { Button, ButtonGroup, Flex, Heading, HeadingProps, Scrollable, State, TreeItem } from '@olegpolyakov/ui';
 import { useAppContext } from '@olegpolyakov/frontend/app';
 
 import { useSettingsContext } from '@/features/settings';
@@ -125,7 +125,7 @@ export default function TasksView({
                     </div>
                 </div>
                 
-                <div className={styles.body}>
+                <Scrollable className={styles.body} fade> 
                     {filteredAndSortedTasks.length > 0 ?
                         <div className={styles.content}>
                             {id === 'all' ?
@@ -156,7 +156,7 @@ export default function TasksView({
                             description="You don't have any tasks yet. Create your first task to get started!"
                         />
                     }
-                </div>
+                </Scrollable>
             
                 <div className={styles.footer}>
                     <TaskInput onSubmit={handleSubmit} />
