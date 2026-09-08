@@ -1,28 +1,88 @@
-import type { TaskData } from '@olegpolyakov/tasks-core';
-import type { HttpClient } from '@olegpolyakov/frontend/clients/http';
+import { v4 as uuid } from 'uuid';
+
+import { Task, type TaskData } from '@olegpolyakov/tasks-core';
 
 import type { TasksApi } from './interface';
 
-export default (http: HttpClient): TasksApi => ({
+const tasks = new Map<string, TaskData>();
+
+export default (): TasksApi => ({
     events: new EventTarget(),
 
     async fetchTasks(): Promise<TaskData[]> {
-        return [];
+        return Array.from(tasks.values());
     },
 
     async createTask(data: Partial<TaskData>): Promise<TaskData> {
-        return {} as TaskData;
+        const id = uuid();
+        const task = new Task({ id, ...data });
+
+        tasks.set(id, task);
+
+        this.events.dispatchEvent(new MessageEvent('message', {
+            data: JSON.stringify({
+                model: 'Task',
+                action: 'insert',
+                documentId: id,
+                data: task
+            })
+        }));
+        
+        return task;
     },
 
     async updateTask(id: string, data: Partial<TaskData>): Promise<TaskData> {
-        return {} as TaskData;
+        const task = tasks.get(id);
+
+        if (!task) throw new Error('Task not found');
+
+        const updatedTask = { ...task, ...data };
+        tasks.set(id, updatedTask);
+
+        this.events.dispatchEvent(new MessageEvent('message', {
+            data: JSON.stringify({
+                model: 'Task',
+                action: 'update',
+                documentId: id,
+                data: updatedTask
+            })
+        }));
+
+        return updatedTask;
     },
 
     async toggleTask(id: string, completed: boolean): Promise<TaskData> {
-        return {} as TaskData;
+        const task = tasks.get(id);
+
+        if (!task) throw new Error('Task not found');
+
+        const updatedTask = { ...task, completed };
+        tasks.set(id, updatedTask);
+
+        this.events.dispatchEvent(new MessageEvent('message', {
+            data: JSON.stringify({
+                model: 'Task',
+                action: 'update',
+                documentId: id,
+                data: updatedTask
+            })
+        }));
+
+        return updatedTask;
     },
 
     async deleteTask(id: string): Promise<void> {
+        tasks.delete(id);
+
+        this.events.dispatchEvent(new MessageEvent('message', {
+            data: JSON.stringify({
+                model: 'Task',
+                action: 'delete',
+                documentId: id,
+                data: null
+            })
+        }));
+
         return;
     }
 });

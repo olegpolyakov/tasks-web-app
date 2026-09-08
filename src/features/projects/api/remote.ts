@@ -1,31 +1,32 @@
-import type { Project, ProjectData, ProjectSectionData, Task } from '@olegpolyakov/tasks-core';
-import { HttpClient } from '@olegpolyakov/frontend/clients/http';
+import type { ProjectData, ProjectSectionData, TaskData } from '@olegpolyakov/tasks-core';
+import type { HttpClient } from '@olegpolyakov/frontend/clients/http';
+import type { WsClient } from '@olegpolyakov/frontend/clients/ws';
 
 import { API_URL } from '@/env';
 
 import type { ProjectsApi } from './interface';
 
-export default (http: HttpClient, ws: WebSocket): ProjectsApi => ({
+export default (http: HttpClient, ws: WsClient): ProjectsApi => ({
     events: ws,
 
     async fetchProjects(): Promise<ProjectData[]> {
-        return http.get(`${API_URL}/projects`);
+        return http.get<ProjectData[]>(`${API_URL}/projects`);
     },
 
     async fetchProject(id: string): Promise<ProjectData> {
-        return http.get(`${API_URL}/projects/${id}`);
+        return http.get<ProjectData>(`${API_URL}/projects/${id}`);
     },
 
-    async fetchProjectTasks(id: string): Promise<Task[]> {
-        return http.get(`${API_URL}/projects/${id}/tasks`);
+    async fetchProjectTasks(id: string): Promise<TaskData[]> {
+        return http.get<TaskData[]>(`${API_URL}/projects/${id}/tasks`);
     },
 
-    async createProject(data: Partial<Project>) {
-        return http.post(`${API_URL}/projects`, data);
+    async createProject(data: Partial<ProjectData>) {
+        return http.post<ProjectData>(`${API_URL}/projects`, data);
     },
 
-    async updateProject(id: string, data: Partial<Project>) {
-        return http.put(`${API_URL}/projects/${id}`, data);
+    async updateProject(id: string, data: Partial<ProjectData>) {
+        return http.put<ProjectData>(`${API_URL}/projects/${id}`, data);
     },
 
     async deleteProject(id: string, options: { deleteTasks?: boolean } = {}) {
@@ -35,11 +36,11 @@ export default (http: HttpClient, ws: WebSocket): ProjectsApi => ({
     },
 
     async createSection(projectId: string, data: Partial<ProjectSectionData>) {
-        return http.post(`${API_URL}/projects/${projectId}/sections`, data);
+        return http.post<ProjectSectionData>(`${API_URL}/projects/${projectId}/sections`, data);
     },
 
     async updateSection(projectId: string, sectionId: string, data: Partial<ProjectSectionData>) {
-        return http.put(`${API_URL}/projects/${projectId}/sections/${sectionId}`, data);
+        return http.put<ProjectSectionData>(`${API_URL}/projects/${projectId}/sections/${sectionId}`, data);
     },
 
     async deleteSection(projectId: string, sectionId: string) {

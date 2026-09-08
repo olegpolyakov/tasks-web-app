@@ -1,7 +1,10 @@
+import { useAuthContext } from '@olegpolyakov/frontend/features/auth';
 import { useApiFactory } from '@olegpolyakov/frontend/services/api';
 
-import { remoteApi } from '../api';
+import { localApi, remoteApi } from '../api';
 
 export default function useProjectsApi() {
-    return useApiFactory(remoteApi);
+    const { isGuest } = useAuthContext();
+
+    return useApiFactory(isGuest ? localApi : remoteApi);
 }

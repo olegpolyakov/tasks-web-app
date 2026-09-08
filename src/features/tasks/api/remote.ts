@@ -1,11 +1,12 @@
 import type { TaskData } from '@olegpolyakov/tasks-core';
 import type { HttpClient } from '@olegpolyakov/frontend/clients/http';
+import type { WsClient } from '@olegpolyakov/frontend/clients/ws';
 
 import { API_URL } from '@/env';
 
 import type { TasksApi } from './interface';
 
-export default (http: HttpClient, ws: WebSocket): TasksApi => ({
+export default (http: HttpClient, ws: WsClient): TasksApi => ({
     events: ws,
 
     async fetchTasks(): Promise<TaskData[]> {

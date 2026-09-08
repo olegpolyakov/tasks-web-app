@@ -4,7 +4,7 @@ import { useApiFactory } from '@olegpolyakov/frontend/services/api';
 import { localApi, remoteApi } from '../api';
 
 export default function useTasksApi() {
-    const { isAuthenticated } = useAuthContext();
+    const { isGuest } = useAuthContext();
     
-    return useApiFactory(isAuthenticated ? remoteApi : localApi);
+    return useApiFactory(isGuest ? localApi : remoteApi);
 }
